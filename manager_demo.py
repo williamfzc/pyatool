@@ -4,7 +4,7 @@ import time
 
 
 # register
-PYAToolkit.bind(func_name='test_a', command='shell pm list package')
+PYAToolkit.bind_cmd(func_name='test_a', command='shell pm list package')
 
 
 # when connect

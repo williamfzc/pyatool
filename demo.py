@@ -1,7 +1,26 @@
 from pyat import PYAToolkit
 
 
+# real function should contains an argument named 'device_id'
+def test_b(device_id):
+    return 'i am test_b, running on {}'.format(device_id)
+
+
+# bind adb command
+PYAToolkit.bind_cmd(func_name='test_a', command='shell pm list package | grep google')
+# or a real function
+PYAToolkit.bind_func(real_func=test_b)
+
+# init
 d = PYAToolkit('123456F')
-d.bind(func_name='test_a', command='shell pm list package')
+
+# and call it
 result = d.test_a()
 print(result)
+# output (may be different)
+# package:com.google.android.webview
+
+# and call it too
+result = d.test_b()
+print(result)
+# i am test_b, running on 123456F

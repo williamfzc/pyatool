@@ -17,7 +17,10 @@ class ADB(object):
     def _exec(command):
         adb_process = subprocess.Popen(command, stdout=subprocess.PIPE)
         exec_result, exec_err = adb_process.communicate(timeout=DEFAULT_TIMEOUT)
-        if exec_err:
-            raise RuntimeError(exec_err.decode())
+        if adb_process.returncode != 0:
+            feedback = 'unknown error happened when execute {}, view terminal for detail'.format(command)
+            if exec_err:
+                feedback = exec_err.decode()
+            raise RuntimeError(feedback)
         logger.info(TAG_EXEC_CMD, cmd=command, result=exec_result)
         return exec_result.decode()
