@@ -26,6 +26,3 @@ class PYAToolkit(object):
             return lambda: command(device_id=self._device_id)
         # is command
         return self._adb.run(command)
-
-    def is_available(self):
-        self._adb
