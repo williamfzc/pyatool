@@ -1,9 +1,9 @@
 from pyat import PYAToolkit
 
 
-# real function should contains an argument named 'device_id'
-def test_b(device_id):
-    return 'i am test_b, running on {}'.format(device_id)
+# real function should contains an argument named 'toolkit'
+def test_b(toolkit):
+    return 'i am test_b, running on {}'.format(toolkit.device_id)
 
 
 # bind adb command

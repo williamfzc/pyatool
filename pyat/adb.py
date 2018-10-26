@@ -11,7 +11,7 @@ class ADB(object):
 
     def run(self, command):
         final_command = [*self.adb_exec, *command]
-        return lambda: self._exec(final_command)
+        return self._exec(final_command)
 
     @staticmethod
     def _exec(command):

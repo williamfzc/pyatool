@@ -4,9 +4,9 @@ from pyat import binder
 
 class PYAToolkit(object):
     def __init__(self, device_id, need_log=None):
-        self._device_id = device_id
-        self._need_log = bool(need_log)
-        self._adb = ADB(device_id)
+        self.device_id = device_id
+        self.need_log = bool(need_log)
+        self.adb = ADB(device_id)
 
     @classmethod
     def bind_cmd(cls, func_name, command):
@@ -23,6 +23,6 @@ class PYAToolkit(object):
 
         # is real function
         if callable(command):
-            return lambda: command(device_id=self._device_id)
+            return lambda: command(toolkit=self)
         # is command
-        return self._adb.run(command)
+        return lambda: self.adb.run(command)
