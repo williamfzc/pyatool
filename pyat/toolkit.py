@@ -1,5 +1,6 @@
 from pyat.adb import ADB
 from pyat import binder
+from pyat.extras import *
 
 
 class PYAToolkit(object):
@@ -23,6 +24,10 @@ class PYAToolkit(object):
 
         # is real function
         if callable(command):
-            return lambda: command(toolkit=self)
+            return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
         # is command
         return lambda: self.adb.run(command)
+
+
+# build-in functions bind here
+PYAToolkit.bind_func(real_func=download_and_install)

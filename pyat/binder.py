@@ -1,6 +1,7 @@
 from pyat.config import *
 
 
+# TODO need a standard output? like json
 _func_map = dict()
 
 

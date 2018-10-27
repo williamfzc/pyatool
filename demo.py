@@ -16,11 +16,12 @@ d = PYAToolkit('123456F')
 
 # and call it
 result = d.test_a()
-print(result)
 # output (may be different)
 # package:com.google.android.webview
 
 # and call it too
 result = d.test_b()
-print(result)
 # i am test_b, running on 123456F
+
+# use build-in function
+d.download_and_install(r'https://github.com/williamfzc/simhand2/releases/download/v0.1.1/app-debug.apk')
