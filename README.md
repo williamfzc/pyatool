@@ -1,4 +1,4 @@
-# pyat
+# pyatool
 
 > python android toolkit 🔨
 
@@ -13,7 +13,7 @@
 ### 导入
 
 ```python
-from pyat import PYAToolkit
+from pyatool import PYAToolkit
 ```
 
 ### 自定义函数
@@ -26,7 +26,7 @@ pyat提供的自定义API让开发者能够很方便地自定义需要的方法�
 
 ```python
 # 自定义需要的函数，传入名称与对应的adb命令
-PYAToolkit.bind(func_name='show_package', cmd='shell pm list package')
+PYAToolkit.bind_cmd(func_name='show_package', cmd='shell pm list package')
 
 # 初始化
 device_toolkit = PYAToolkit('123456F')
@@ -38,7 +38,7 @@ result = device_toolkit.show_package()
 adb -s 123456F shell pm list package
 ```
 
-再也不用看到那些烦人的`os`与`subprocess`。pyat也覆盖了多台设备同时连接时的状况，所有烦人的`adb -s 123456F shell`再见~
+再也不用看到那些烦人的`os`与`subprocess`。pyatool也覆盖了多台设备同时连接时的状况，所有烦人的`adb -s 123456F shell`再见~
 
 #### 高级定制
 
@@ -80,6 +80,44 @@ pyat如此设计的目的是为了能够尽量减少重复工作。为了方便�
 - 确认无误后发起PR就可以啦！
 
 要让库变得更方便好用还是需要各位的共同努力~
+
+## 具体案例
+
+结合[whenconnect](https://github.com/williamfzc/whenconnect)，只需要几行代码就可以完成一个android设备监听及方法触发的工程：
+
+```python
+from pyatool import PYAToolkit
+from whenconnect import when_connect, start_detect
+import time
+
+
+# register
+PYAToolkit.bind_cmd(func_name='test_a', command='shell pm list package')
+
+
+# when connect
+def add_device(device_id):
+    d = PYAToolkit(device_id)
+    result = d.test_a()
+    print(result)
+
+
+# detector
+when_connect(device='all', do=add_device)
+start_detect()
+
+# keep running
+while True:
+    time.sleep(1)
+```
+
+就完成了。在运行之后，一旦有android设备接入，将会自动展示出该设备上已经安装的包。
+
+## 安装
+
+```python
+pip install pyatool
+```
 
 ## 意见与建议
 

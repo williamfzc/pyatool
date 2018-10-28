@@ -1,4 +1,4 @@
-from pyat.config import *
+from pyatool.config import *
 
 
 # TODO need a standard output? like json

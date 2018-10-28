@@ -1,5 +1,5 @@
 import subprocess
-from pyat.config import *
+from pyatool.config import *
 
 
 class ADB(object):

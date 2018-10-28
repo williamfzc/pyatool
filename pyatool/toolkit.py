@@ -1,6 +1,6 @@
-from pyat.adb import ADB
-from pyat import binder
-from pyat.config import *
+from pyatool.adb import ADB
+from pyatool import binder
+from pyatool.config import *
 
 import importlib
 
@@ -37,7 +37,7 @@ class PYAToolkit(object):
 
 
 # build-in functions bind here
-extra_functions = importlib.import_module('pyat.extras')
+extra_functions = importlib.import_module('pyatool.extras')
 for each_func in extra_functions.__all__:
     function_obj = getattr(extra_functions, each_func)
     PYAToolkit.bind_func(real_func=function_obj)

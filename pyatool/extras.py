@@ -30,7 +30,7 @@ def show_package(toolkit):
 
 __all__ = [
     'hello_world',
-    
+
     'download_and_install',
     'show_package',
 ]
