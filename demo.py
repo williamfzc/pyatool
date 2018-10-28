@@ -1,4 +1,4 @@
-from pyat import PYAToolkit
+from pyatool import PYAToolkit
 
 
 # real function should contains an argument named 'toolkit'
@@ -29,3 +29,4 @@ print(all_functions)
 
 # use build-in function
 d.hello_world()
+d.show_package()
