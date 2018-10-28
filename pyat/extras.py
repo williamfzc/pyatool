@@ -24,7 +24,13 @@ def download_and_install(url, toolkit=None):
     return True
 
 
+def show_package(toolkit):
+    return toolkit.adb.run(['shell', 'pm', 'list', 'package'])
+
+
 __all__ = [
     'hello_world',
+    
     'download_and_install',
+    'show_package',
 ]
