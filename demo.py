@@ -23,5 +23,9 @@ result = d.test_a()
 result = d.test_b()
 # i am test_b, running on 123456F
 
+# show all functions
+all_functions = d.current_function()
+print(all_functions)
+
 # use build-in function
-d.download_and_install(r'https://github.com/williamfzc/simhand2/releases/download/v0.1.1/app-debug.apk')
+d.hello_world()

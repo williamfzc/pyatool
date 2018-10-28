@@ -32,3 +32,7 @@ def remove(func_name):
 
 def get(func_name):
     return _func_map.get(func_name)
+
+
+def get_all():
+    return _func_map

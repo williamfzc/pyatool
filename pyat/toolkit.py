@@ -1,13 +1,16 @@
 from pyat.adb import ADB
 from pyat import binder
-from pyat.extras import *
+from pyat.config import *
+
+import importlib
 
 
 class PYAToolkit(object):
     def __init__(self, device_id, need_log=None):
         self.device_id = device_id
-        self.need_log = bool(need_log)
         self.adb = ADB(device_id)
+
+        self._need_log = bool(need_log)
 
     @classmethod
     def bind_cmd(cls, func_name, command):
@@ -16,6 +19,10 @@ class PYAToolkit(object):
     @classmethod
     def bind_func(cls, real_func):
         return binder.add(real_func.__name__, real_func)
+
+    @classmethod
+    def current_function(cls):
+        return binder.get_all()
 
     def __getattr__(self, item):
         if not binder.is_existed(item):
@@ -30,4 +37,8 @@ class PYAToolkit(object):
 
 
 # build-in functions bind here
-PYAToolkit.bind_func(real_func=download_and_install)
+extra_functions = importlib.import_module('pyat.extras')
+for each_func in extra_functions.__all__:
+    function_obj = getattr(extra_functions, each_func)
+    PYAToolkit.bind_func(real_func=function_obj)
+logger.info(TAG_BINDER, msg='standard package loaded')
