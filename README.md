@@ -1,5 +1,7 @@
 # pyatool
 
+[![PyPI version](https://badge.fury.io/py/pyatool.svg)](https://badge.fury.io/py/pyatool)
+
 > python android toolkit 🔨
 
 ## 目标
@@ -18,7 +20,7 @@ from pyatool import PYAToolkit
 
 ### 自定义函数
 
-pyat提供的自定义API让开发者能够很方便地自定义需要的方法并挂载到pyat上。事实上，自带的方法也是通过这种方法开发的。
+pyatool提供的自定义API让开发者能够很方便地自定义需要的方法并挂载到上面。事实上，它自带的方法也是通过这种方法开发的。
 
 #### 简单定制
 
@@ -74,7 +76,8 @@ pyat如此设计的目的是为了能够尽量减少重复工作。为了方便�
 
 如果你编写了一些好方法并希望将其合入pyat内置库以方便后续使用，你只需要：
 
-- 将他们按照格式粘贴到`extras.py`中
+- `fork` & `git clone`到本地
+- 将写好的函数按照格式粘贴到`extras.py`中
 - 在`__all__`中加入你的函数名称
 - 运行，看一下它能否正常运作
 - 确认无误后发起PR就可以啦！
