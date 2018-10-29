@@ -1,6 +1,10 @@
 import requests
 import tempfile
 import os
+import platform
+
+
+SYSTEM_TYPE = platform.system()
 
 
 def hello_world(toolkit=None):
@@ -12,7 +16,16 @@ def hello_world(toolkit=None):
     toolkit.adb.run(['shell', 'ps'])
 
 
-def download_and_install(url, toolkit=None):
+def install_from(url=None, path=None, toolkit=None):
+    if (not (url or path)) or (url and path):
+        raise TypeError('need url or path for installation, not both or none')
+    if url and not path:
+        return _install_from_url(url, toolkit)
+    else:
+        return _install_from_path(path, toolkit)
+
+
+def _install_from_url(url, toolkit=None):
     resp = requests.get(url)
     if not resp.ok:
         return False
@@ -24,13 +37,23 @@ def download_and_install(url, toolkit=None):
     return True
 
 
-def show_package(toolkit):
+def _install_from_path(path, toolkit=None):
+    return toolkit.adb.run(['install', '-r', '-d', '-t', path])
+
+
+def get_current_activity(toolkit=None):
+    filter_name = 'findstr' if SYSTEM_TYPE == 'Windows' else 'grep'
+    return toolkit.adb.run(['shell', 'dumpsys',  'activity', 'top', '|', filter_name, 'ACTIVITY'])
+
+
+def show_package(toolkit=None):
     return toolkit.adb.run(['shell', 'pm', 'list', 'package'])
 
 
 __all__ = [
     'hello_world',
 
-    'download_and_install',
+    'install_from',
     'show_package',
+    'get_current_activity',
 ]

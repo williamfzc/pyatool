@@ -30,3 +30,5 @@ print(all_functions)
 # use build-in function
 d.hello_world()
 d.show_package()
+d.get_current_activity()
+d.install_from(url=r'https://github.com/williamfzc/simhand2/releases/download/v0.1.2/app-debug-androidTest.apk')
