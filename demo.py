@@ -28,7 +28,13 @@ all_functions = d.current_function()
 print(all_functions)
 
 # use build-in function
+# test-only
 d.hello_world()
+# show all packages installed in your phone
 d.show_package()
+# top activity name
 d.get_current_activity()
+# install apk from url or path
 d.install_from(url=r'https://github.com/williamfzc/simhand2/releases/download/v0.1.2/app-debug-androidTest.apk')
+# check if is installed
+is_installed = d.is_installed(package_name='com.github.williamfzc.simhand2')

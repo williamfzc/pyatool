@@ -1,3 +1,4 @@
+# TODO should support setter and getter
 import structlog
 
 

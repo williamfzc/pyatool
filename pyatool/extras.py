@@ -42,8 +42,13 @@ def _install_from_path(path, toolkit=None):
 
 
 def get_current_activity(toolkit=None):
-    filter_name = 'findstr' if SYSTEM_TYPE == 'Windows' else 'grep'
-    return toolkit.adb.run(['shell', 'dumpsys',  'activity', 'top', '|', filter_name, 'ACTIVITY'])
+    # TODO if sh has installed in windows, command is same as linux ..
+    # filter_name = 'findstr' if SYSTEM_TYPE == 'Windows' else 'grep'
+    return toolkit.adb.run(['shell', 'dumpsys',  'activity', 'top', '|', 'grep', 'ACTIVITY'])
+
+
+def is_installed(package_name, toolkit=None):
+    return package_name in show_package(toolkit)
 
 
 def show_package(toolkit=None):
@@ -56,4 +61,5 @@ __all__ = [
     'install_from',
     'show_package',
     'get_current_activity',
+    'is_installed',
 ]
