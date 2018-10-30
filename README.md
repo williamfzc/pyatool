@@ -1,6 +1,7 @@
 # pyatool
 
 [![PyPI version](https://badge.fury.io/py/pyatool.svg)](https://badge.fury.io/py/pyatool)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5f6647a3121aa7d278ab/maintainability)](https://codeclimate.com/github/williamfzc/pyatool/maintainability)
 
 > python android toolkit 🔨
 
@@ -10,7 +11,9 @@
 - 简洁的方法自定义与增删
 - 无痛融入到现有框架内
 
-## 设计
+## 设计与使用
+
+旨在提供一种优雅的方案对android手机进行操作，并具备强大的可拓展性可供自由定制。
 
 ### 导入
 
@@ -72,9 +75,9 @@ device_toolkit.download_and_install()
 
 #### 单次开发
 
-pyat如此设计的目的是为了能够尽量减少重复工作。为了方便所有人加入开发，往pyat内置库中添加方法非常容易。
+pyatool如此设计的目的是为了能够尽量减少重复工作。为了方便所有人加入开发，往内置库中添加方法非常容易。
 
-如果你编写了一些好方法并希望将其合入pyat内置库以方便后续使用，你只需要：
+如果你编写了一些好方法并希望将其合入pyatool内置库以方便后续使用，你只需要：
 
 - `fork` & `git clone`到本地
 - 将写好的函数按照格式粘贴到`extras.py`中
