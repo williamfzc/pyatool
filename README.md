@@ -88,35 +88,34 @@ pyatool如此设计的目的是为了能够尽量减少重复工作。为了方�
 
 ## 具体案例
 
-结合[whenconnect](https://github.com/williamfzc/whenconnect)，只需要几行代码就可以完成一个android设备监听及方法触发的工程：
+在实际开发中，我们可能会频繁给设备安装apk；例如一旦设备连入电脑，自动给该设备安装apk。而结合[whenconnect](https://github.com/williamfzc/whenconnect)，只需要几行代码就可以实现：
 
 ```python
 from pyatool import PYAToolkit
 from whenconnect import when_connect, start_detect
-import time
 
 
-# register
-PYAToolkit.bind_cmd(func_name='test_a', command='shell pm list package')
+VERSION = 'v0.1.4'
+BASE_URL = r'https://github.com/williamfzc/simhand2/releases/download/{}/{}'
+TEST_APK = r'app-debug-androidTest.apk'
+MAIN_APK = r'app-debug.apk'
+
+TEST_DL_URL = BASE_URL.format(VERSION, TEST_APK)
+MAIN_DL_URL = BASE_URL.format(VERSION, MAIN_APK)
 
 
-# when connect
-def add_device(device_id):
-    d = PYAToolkit(device_id)
-    result = d.test_a()
-    print(result)
+def install_sh(device_id):
+    pya = PYAToolkit(device_id)
+    pya.install_from(url=TEST_DL_URL)
+    pya.install_from(url=MAIN_DL_URL)
+    print('install simhand2 ok in {}'.format(device_id))
 
 
-# detector
-when_connect(device='all', do=add_device)
+when_connect(device='all', do=install_sh)
 start_detect()
-
-# keep running
-while True:
-    time.sleep(1)
 ```
 
-就完成了。在运行之后，一旦有android设备接入，将会自动展示出该设备上已经安装的包。
+就完成了。在运行之后，一旦有android设备接入，将会自动为其安装apk。
 
 ## 安装
 
