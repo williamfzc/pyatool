@@ -14,7 +14,8 @@ class PYAToolkit(object):
 
     @classmethod
     def bind_cmd(cls, func_name, command):
-        return binder.add(func_name, command)
+        command = command.split(' ')
+        return binder.add(func_name, lambda toolkit: toolkit.adb.run(command))
 
     @classmethod
     def bind_func(cls, real_func):
@@ -28,17 +29,13 @@ class PYAToolkit(object):
         if not binder.is_existed(item):
             raise AttributeError('function {} not found'.format(item))
         command = binder.get(item)
-
-        # is real function
-        if callable(command):
-            return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
-        # is command
-        return lambda: self.adb.run(command)
+        return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
 
 
 # build-in functions bind here
+logger.info(TAG_BINDER, msg=' standard package loading ... '.center(40, '-'))
 extra_functions = importlib.import_module('pyatool.extras')
 for each_func in extra_functions.__all__:
     function_obj = getattr(extra_functions, each_func)
     PYAToolkit.bind_func(real_func=function_obj)
-logger.info(TAG_BINDER, msg='standard package loaded')
+logger.info(TAG_BINDER, msg=' standard package loaded '.center(40, '-'))
