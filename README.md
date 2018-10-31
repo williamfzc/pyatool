@@ -118,6 +118,69 @@ start_detect()
 
 就完成了。在运行之后，一旦有android设备接入，将会自动为其安装apk。
 
+## API
+
+### `install_from`
+
+根据url或path安装apk
+
+```python
+d = PYAToolkit('123456F')
+d.install_from(url='http://some_site.com/some_apk.apk')
+d.install_from(path=r'F:\\some_apk.apk')
+```
+
+output
+
+```python
+package:com.google.android.webview\r\n
+```
+
+### `get_current_activity`
+
+获取设备的当前activity名称
+
+```python
+d = PYAToolkit('123456F')
+d.get_current_activity()
+```
+
+output
+
+```python
+ACTIVITY com.tencent.mm/.plugin.account.ui.SimpleLoginUI aae2da6 pid=23672\r\n  ACTIVITY com.coloros.recents/.RecentsActivity 32c61ff pid=23487\r\n  ACTIVITY com.oppo.launcher/.Launcher 6351687 pid=4256\r\n
+```
+
+### `is_installed`
+
+检测包是否已被安装到设备上
+
+```python
+d = PYAToolkit('123456F')
+d.is_installed(package_name='com.github.williamfzc.simhand2')
+```
+
+output
+
+```python
+True
+```
+
+### `show_package`
+
+展示设备上所有已安装的包
+
+```python
+d = PYAToolkit('123456F')
+d.show_package()
+```
+
+output
+
+```python
+package:com.coloros.backuprestore\r\npackage:com.github.uiautomator\r\npackage:com.qualcomm.qti.haven.telemetry.service\r\npackage:com.android.cts.priv.ctsshim\r\npackage:com.oppo.logkitsdservice\r\npackage:com.qualcomm.qti.auth.sampleextauthservice\r\npackage:com.qualcomm.qti.perfdump\r\npackage:com.oppo.ctautoregist\r\npackage:com.coloros.onekeylockscreen\r\npackage:com.coloros.phonenoareainquire\r\n
+```
+
 ## 安装
 
 ```python
