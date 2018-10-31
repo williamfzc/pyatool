@@ -11,6 +11,9 @@ PYAToolkit.bind_cmd(func_name='test_a', command='shell pm list package | grep go
 # or a real function
 PYAToolkit.bind_func(real_func=test_b)
 
+# change default configure
+PYAToolkit.change_conf('TAG_EXEC_CMD', 'EXEC_COMMAND')
+
 # init
 d = PYAToolkit('123456F')
 
@@ -38,3 +41,6 @@ d.get_current_activity()
 d.install_from(url=r'https://github.com/williamfzc/simhand2/releases/download/v0.1.2/app-debug-androidTest.apk')
 # check if is installed
 is_installed = d.is_installed(package_name='com.github.williamfzc.simhand2')
+
+# TODO airplane
+# TODO wifi

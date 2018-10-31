@@ -1,5 +1,6 @@
 import subprocess
-from pyatool.config import *
+import pyatool.logger as logger
+import pyatool.config as conf
 
 
 class ADB(object):
@@ -16,11 +17,11 @@ class ADB(object):
     @staticmethod
     def _exec(command):
         adb_process = subprocess.Popen(command, stdout=subprocess.PIPE)
-        exec_result, exec_err = adb_process.communicate(timeout=DEFAULT_TIMEOUT)
+        exec_result, exec_err = adb_process.communicate(timeout=conf.DEFAULT_TIMEOUT)
         if adb_process.returncode != 0:
             feedback = 'unknown error happened when execute {}, view terminal for detail'.format(command)
             if exec_err:
                 feedback = exec_err.decode()
             raise RuntimeError(feedback)
-        logger.info(TAG_EXEC_CMD, cmd=command, result=exec_result)
+        logger.info(conf.TAG_EXEC_CMD, cmd=command, result=exec_result)
         return exec_result.decode()
