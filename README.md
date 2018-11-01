@@ -1,7 +1,8 @@
 # pyatool
 
-[![PyPI version](https://badge.fury.io/py/pyatool.svg)](https://badge.fury.io/py/pyatool)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5f6647a3121aa7d278ab/maintainability)](https://codeclimate.com/github/williamfzc/pyatool/maintainability)
+[![PyPI version](https://badge.fury.io/py/pyatool.svg)](https://badge.fury.io/py/pyatool)
+[![Downloads](https://pepy.tech/badge/pyatool)](https://pepy.tech/project/pyatool)
 
 > python android toolkit 🔨
 
