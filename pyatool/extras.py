@@ -3,11 +3,16 @@ import tempfile
 import os
 import platform
 
-
 SYSTEM_TYPE = platform.system()
 
 
 def hello_world(toolkit=None):
+    """
+    test only
+
+    :param toolkit:
+    :return:
+    """
     # toolkit contains some tools for development
     # get device id
     device_id = toolkit.device_id
@@ -17,6 +22,14 @@ def hello_world(toolkit=None):
 
 
 def install_from(url=None, path=None, toolkit=None):
+    """
+    根据url或path安装apk
+
+    :param url:
+    :param path:
+    :param toolkit:
+    :return:
+    """
     if (not (url or path)) or (url and path):
         raise TypeError('need url or path for installation, not both or none')
     if url and not path:
@@ -42,17 +55,64 @@ def _install_from_path(path, toolkit=None):
 
 
 def get_current_activity(toolkit=None):
+    """
+    获取设备的当前activity名称
+
+    :param toolkit:
+    :return:
+    """
+
     # TODO if sh has installed in windows, command is same as linux ..
     # filter_name = 'findstr' if SYSTEM_TYPE == 'Windows' else 'grep'
-    return toolkit.adb.run(['shell', 'dumpsys',  'activity', 'top', '|', 'grep', 'ACTIVITY'])
+    return toolkit.adb.run(['shell', 'dumpsys', 'activity', 'top', '|', 'grep', 'ACTIVITY'])
 
 
 def is_installed(package_name, toolkit=None):
+    """
+    检测包是否已被安装到设备上
+
+    :param package_name:
+    :param toolkit:
+    :return:
+    """
     return package_name in show_package(toolkit)
 
 
 def show_package(toolkit=None):
+    """
+    展示设备上所有已安装的包
+
+    :param toolkit:
+    :return:
+    """
     return toolkit.adb.run(['shell', 'pm', 'list', 'package'])
+
+
+def clean_cache(package_name, toolkit=None):
+    """
+    清理对应包的缓存
+
+    :param package_name:
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'pm', 'clear', package_name])
+
+
+def uninstall(package_name, toolkit=None, save_data=None):
+    """
+    卸载指定包
+
+    :param package_name:
+    :param toolkit:
+    :param save_data:
+    :return:
+    """
+    if save_data:
+        cmd_list = ['uninstall', '-k', package_name]
+    else:
+        cmd_list = ['uninstall', package_name]
+    return toolkit.adb.run(cmd_list)
 
 
 __all__ = [
@@ -62,4 +122,6 @@ __all__ = [
     'show_package',
     'get_current_activity',
     'is_installed',
+    'clean_cache',
+    'uninstall',
 ]
