@@ -115,6 +115,42 @@ def uninstall(package_name, toolkit=None, save_data=None):
     return toolkit.adb.run(cmd_list)
 
 
+def switch_airplane(status, toolkit=None):
+    """
+    切换飞行模式的开关
+
+    :param status: true or false
+    :param toolkit:
+    :return:
+    """
+    base_setting_cmd = ["shell", "settings", "put", "global", "airplane_mode_on"]
+    base_am_cmd = ["shell", "am", "broadcast", "-a", "android.intent.action.AIRPLANE_MODE", "--ez", "state"]
+    if status:
+        base_setting_cmd += ['1']
+        base_am_cmd += ['true']
+    else:
+        base_setting_cmd += ['0']
+        base_am_cmd += ['false']
+    toolkit.adb.run(base_setting_cmd)
+    toolkit.adb.run(base_am_cmd)
+
+
+def switch_wifi(status, toolkit=None):
+    """
+    切换wifi开关
+
+    :param status: true or false
+    :param toolkit:
+    :return:
+    """
+    base_cmd = ['shell', 'svc', 'wifi']
+    cmd_dict = {
+        True: base_cmd + ['enable'],
+        False: base_cmd + ['disable'],
+    }
+    toolkit.adb.run(cmd_dict[status])
+
+
 __all__ = [
     'hello_world',
 
@@ -124,4 +160,6 @@ __all__ = [
     'is_installed',
     'clean_cache',
     'uninstall',
+    'switch_airplane',
+    'switch_wifi',
 ]

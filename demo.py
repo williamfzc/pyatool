@@ -38,9 +38,15 @@ d.show_package()
 # top activity name
 d.get_current_activity()
 # install apk from url or path
-d.install_from(url=r'https://github.com/williamfzc/simhand2/releases/download/v0.1.2/app-debug-androidTest.apk')
+d.install_from(url=r'https://github.com/williamfzc/simhand2/releases/download/v0.1.2/app-debug.apk')
 # check if is installed
-is_installed = d.is_installed(package_name='com.github.williamfzc.simhand2')
+target_package_name = 'com.github.williamfzc.simhand2'
+is_installed = d.is_installed(package_name=target_package_name)
+d.clean_cache(target_package_name)
+if is_installed:
+    d.uninstall(target_package_name)
 
-# TODO airplane
-# TODO wifi
+d.switch_wifi(False)
+d.switch_airplane(True)
+d.switch_airplane(False)
+d.switch_wifi(True)
