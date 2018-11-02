@@ -151,6 +151,50 @@ def switch_wifi(status, toolkit=None):
     toolkit.adb.run(cmd_dict[status])
 
 
+def switch_screen(status, toolkit=None):
+    """
+    点亮/熄灭 屏幕
+
+    :param status: true or false
+    :param toolkit:
+    :return:
+    """
+    base_cmd = ['shell', 'input', 'keyevent']
+    cmd_dict = {
+        True: base_cmd + ['224'],
+        False: base_cmd + ['223'],
+    }
+    toolkit.adb.run(cmd_dict[status])
+
+
+def input_text(content, toolkit=None):
+    """
+    输入文字（不支持中文）
+    # TODO 中文输入 可以利用ADBKeyBoard (https://github.com/senzhk/ADBKeyBoard)
+
+    :param content:
+    :param toolkit:
+    :return:
+    """
+    toolkit.adb.run(['shell', 'input', 'text', content])
+
+
+def start_activity(package_name, activity_name=None, toolkit=None):
+    """
+    根据包名/活动名 启动应用/活动
+
+    :param package_name:
+    :param activity_name:
+    :param toolkit:
+    :return:
+    """
+    # TODO --es
+    base_cmd = ['shell', 'am', 'start']
+    if not activity_name:
+        return toolkit.adb.run(base_cmd + [package_name])
+    return toolkit.adb.run(base_cmd + ['-n', '{}/.{}'.format(package_name, activity_name)])
+
+
 __all__ = [
     'hello_world',
 
@@ -162,4 +206,6 @@ __all__ = [
     'uninstall',
     'switch_airplane',
     'switch_wifi',
+    'input_text',
+    'start_activity',
 ]
