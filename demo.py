@@ -14,6 +14,9 @@ PYAToolkit.bind_func(real_func=test_b)
 # change default configure
 PYAToolkit.change_conf('TAG_EXEC_CMD', 'EXEC_COMMAND')
 
+# no log?
+PYAToolkit.switch_logger(False)
+
 # init
 d = PYAToolkit('123456F')
 
