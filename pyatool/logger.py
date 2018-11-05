@@ -10,6 +10,19 @@ error = logger.error
 
 
 # need log?
+def switch(status):
+    global info, warn, error
+    status = bool(status)
+    if status:
+        info = logger.info
+        warn = logger.warn
+        error = logger.error
+        return status
+    empty_func = lambda *_, **__: None
+    info, warn, error = empty_func, empty_func, empty_func
+    return status
+
+
 # TODO: still didn't work, related to https://github.com/hynek/structlog/issues/30
 def set_log_level(level):
     level_dict = {

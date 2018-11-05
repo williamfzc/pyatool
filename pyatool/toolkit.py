@@ -50,3 +50,7 @@ class PYAToolkit(object):
             setattr(conf, name, value)
             return True
         return False
+
+    @classmethod
+    def switch_logger(cls, status):
+        return logger.switch(status)
