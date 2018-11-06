@@ -1,6 +1,7 @@
 import requests
 import tempfile
 import os
+import re
 import platform
 
 SYSTEM_TYPE = platform.system()
@@ -195,6 +196,18 @@ def start_activity(package_name, activity_name=None, toolkit=None):
     return toolkit.adb.run(base_cmd + ['-n', '{}/.{}'.format(package_name, activity_name)])
 
 
+def get_ip_address(toolkit=None):
+    """
+    获取android设备ip地址
+
+    :param toolkit:
+    :return:
+    """
+    # TODO better design?
+    result = toolkit.adb.run(['shell', 'ifconfig', 'wlan0'])
+    return re.findall(r'inet\s*addr:(.*?)\s', result, re.DOTALL)[0]
+
+
 __all__ = [
     'hello_world',
 
@@ -208,4 +221,5 @@ __all__ = [
     'switch_wifi',
     'input_text',
     'start_activity',
+    'get_ip_address',
 ]

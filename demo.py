@@ -53,3 +53,6 @@ d.switch_wifi(False)
 d.switch_airplane(True)
 d.switch_airplane(False)
 d.switch_wifi(True)
+
+local_address = d.get_ip_address()
+print(local_address)
