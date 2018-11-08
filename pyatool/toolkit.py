@@ -11,9 +11,13 @@ class PYAToolkit(object):
         cls._bind_standard()
         return super(PYAToolkit, cls).__new__(cls)
 
-    def __init__(self, device_id):
+    def __init__(self, device_id, mode=None):
         self.device_id = device_id
-        self.adb = ADB(device_id)
+
+        if mode == 'remote':
+            self.adb = ADB(device_id, mode)
+        else:
+            self.adb = ADB(device_id, 'local')
 
     @classmethod
     def bind_cmd(cls, func_name, command):
