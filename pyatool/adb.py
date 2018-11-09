@@ -39,7 +39,7 @@ class ADB(object):
 
     def _enable_remote_connect(self):
         """ enable remote connect, and return device's ip address """
-        self.run(['tcpip', '5555'])
         ip_address = self._get_ip_address()
+        self.run(['tcpip', '5555'])
         self.run(['connect', ip_address])
         return ip_address

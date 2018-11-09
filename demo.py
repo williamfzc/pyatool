@@ -20,6 +20,9 @@ PYAToolkit.switch_logger(False)
 # init
 d = PYAToolkit('123456F')
 
+# remote connect ( not very stable
+# d - PYAToolkit('123456F', mode='remote')
+
 # and call it
 result = d.test_a()
 # output (may be different)
