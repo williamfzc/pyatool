@@ -2,22 +2,46 @@ from pyatool.adb import ADB
 from pyatool import binder
 import pyatool.config as conf
 import pyatool.logger as logger
-import importlib
+import pyatool.extras as extras
 
 
 class PYAToolkit(object):
+    _instance_dict = dict()
+
     def __new__(cls, *args, **kwargs):
         # load standard functions
-        cls._bind_standard()
+        # for looking up
+        cls.standard_func = extras
         return super(PYAToolkit, cls).__new__(cls)
 
     def __init__(self, device_id, mode=None):
-        self.device_id = device_id
+        """
+        init toolkit
 
+        :param device_id:
+        :param mode: 'local' or 'remote'
+
+        remote mode:
+        1. get ip address
+        2. enable device's port 5555
+        3. adb connect {ip_address}
+        4. change base adb command to: `adb -s {ip_address}`
+        """
+        # check
+        if device_id in self._instance_dict:
+            logger.info('device {} already existed'.format(device_id))
+            return
+
+        # init
+        self.device_id = device_id
         if mode == 'remote':
             self.adb = ADB(device_id, mode)
         else:
             self.adb = ADB(device_id, 'local')
+        self.device_ip = self.adb.device_ip
+
+        # storage
+        self._instance_dict[device_id] = self
 
     @classmethod
     def bind_cmd(cls, func_name, command):
@@ -28,17 +52,12 @@ class PYAToolkit(object):
     def bind_func(cls, real_func):
         return binder.add(real_func.__name__, real_func)
 
-    @classmethod
-    def _bind_standard(cls):
-        # build-in functions bind here
-        logger.info(conf.TAG_BINDER, msg=' standard package loading ... '.center(40, '-'))
-        extra_functions = importlib.import_module('pyatool.extras')
-        for each_func in extra_functions.__all__:
-            function_obj = getattr(extra_functions, each_func)
-            PYAToolkit.bind_func(real_func=function_obj)
-        logger.info(conf.TAG_BINDER, msg=' standard package loaded '.center(40, '-'))
-
     def __getattr__(self, item):
+        # is standard function?
+        if hasattr(self.standard_func, item):
+            command = getattr(self.standard_func, item)
+            return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
+        # is custom function?
         if not binder.is_existed(item):
             raise AttributeError('function {} not found'.format(item))
         command = binder.get(item)
@@ -58,3 +77,8 @@ class PYAToolkit(object):
     @classmethod
     def switch_logger(cls, status):
         return logger.switch(status)
+
+    def terminate(self):
+        """ destroy instance """
+        if self.device_id in self._instance_dict:
+            del self._instance_dict[self.device_id]
