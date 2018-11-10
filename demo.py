@@ -14,14 +14,14 @@ PYAToolkit.bind_func(real_func=test_b)
 # change default configure
 PYAToolkit.change_conf('TAG_EXEC_CMD', 'EXEC_COMMAND')
 
-# no log?
-PYAToolkit.switch_logger(False)
+# need log? set it True or False
+PYAToolkit.switch_logger(True)
 
 # init
 d = PYAToolkit('123456F')
 
 # remote connect ( not very stable
-# d - PYAToolkit('123456F', mode='remote')
+# d = PYAToolkit('123456F', mode='remote')
 
 # and call it
 result = d.test_a()

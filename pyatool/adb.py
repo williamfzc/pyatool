@@ -15,7 +15,10 @@ class ADB(object):
             self.adb_exec = ['adb', '-s', self.device_ip]
 
         # show current configure
-        logger.info(conf.TAG_DEVICE, id=self.device_id, ip=self.device_ip, adb_cmd=self.adb_exec)
+        logger.info(conf.TAG_DEVICE,
+                    id=self.device_id,
+                    ip=self.device_ip if hasattr(self, 'device_ip') else '',
+                    adb_cmd=self.adb_exec)
 
     def run(self, command):
         final_command = [*self.adb_exec, *command]
