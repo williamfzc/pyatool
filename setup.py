@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyatool',
-    version='0.2.3',
+    version='0.3.0',
     description='python android toolkit',
     author='williamfzc',
     author_email='fengzc@vip.qq.com',

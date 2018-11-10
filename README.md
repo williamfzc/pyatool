@@ -120,7 +120,11 @@ start_detect()
 
 ## API
 
-推荐直接看 [extras.py](https://github.com/williamfzc/pyatool/blob/master/pyatool/extras.py)
+pyatool本身提供了丰富的（并没有）标准函数库供开发者直接使用，已经有的函数就不需要再次编写了。
+
+同时也欢迎热心人士为标准库添砖加瓦，无论是提出修改意见或者新增方法 :) 已有的函数很可能难以适应不同的情况。
+
+使用方法推荐直接看 [extras.py](https://github.com/williamfzc/pyatool/blob/master/pyatool/extras.py)
 
 ## 安装
 

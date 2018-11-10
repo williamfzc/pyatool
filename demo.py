@@ -41,7 +41,7 @@ d.get_current_activity()
 all_functions = d.current_function()
 print(all_functions)
 
-# 下面列举所有标准函数的使用方法
+# 下面列举所有标准函数的使用方法，有任何问题欢迎反馈或自己改
 # test-only
 d.hello_world()
 
@@ -51,9 +51,9 @@ installed_package = d.show_package()
 # 栈顶活动名
 current_activity_name = d.get_current_activity()
 
-# 安装指定apk（支持url与path）
+# 安装指定apk（支持url与path），例子里的安装可能比较久因为是从github下的，可以自己改
 d.install_from(url=r'https://github.com/williamfzc/simhand2/releases/download/v0.1.2/app-debug.apk')
-d.install_from(path=r'/Users/admin/some_path/some_apk.apk')
+# d.install_from(path=r'/Users/admin/some_path/some_apk.apk')
 
 # 检测包是否已安装
 target_package_name = 'com.github.williamfzc.simhand2'
@@ -64,13 +64,13 @@ d.clean_cache(target_package_name)
 if is_installed:
     d.uninstall(target_package_name)
 
+# 获取手机ip
+local_address = d.get_ip_address()
+print(local_address)
+
 # 切换wifi状态
 d.switch_wifi(False)
 # 切换飞行模式
 d.switch_airplane(True)
 d.switch_airplane(False)
 d.switch_wifi(True)
-
-# 获取手机ip
-local_address = d.get_ip_address()
-print(local_address)

@@ -27,7 +27,7 @@ class ADB(object):
 
     @staticmethod
     def _exec(command):
-        adb_process = subprocess.Popen(command, stdout=subprocess.PIPE)
+        adb_process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         exec_result, exec_err = adb_process.communicate(timeout=conf.DEFAULT_TIMEOUT)
         if adb_process.returncode != 0:
             feedback = 'unknown error happened when execute {}, view terminal for detail'.format(command)
