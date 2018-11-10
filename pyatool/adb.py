@@ -8,6 +8,7 @@ class ADB(object):
     def __init__(self, device_id, mode=None):
         self.adb_exec = ['adb', '-s', device_id]
         self.device_id = device_id
+        self.device_ip = None
 
         # remote connect
         if mode and mode == 'remote':
@@ -17,7 +18,7 @@ class ADB(object):
         # show current configure
         logger.info(conf.TAG_DEVICE,
                     id=self.device_id,
-                    ip=self.device_ip if hasattr(self, 'device_ip') else '',
+                    ip=self.device_ip,
                     adb_cmd=self.adb_exec)
 
     def run(self, command):
@@ -44,5 +45,5 @@ class ADB(object):
         """ enable remote connect, and return device's ip address """
         ip_address = self._get_ip_address()
         self.run(['tcpip', '5555'])
-        self.run(['connect', ip_address])
+        self._exec(['adb', 'connect', ip_address])
         return ip_address

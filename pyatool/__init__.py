@@ -1,1 +1,1 @@
-from pyatool.toolkit import PYAToolkit
+from pyatool.core import PYAToolkit

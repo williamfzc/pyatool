@@ -34,3 +34,7 @@ def set_log_level(level):
     if level not in level_dict:
         return NameError('level {} not supported'.format(level))
     logger.setLevel(level_dict[level])
+
+
+# default to no log
+switch(False)

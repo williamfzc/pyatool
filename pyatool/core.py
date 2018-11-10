@@ -26,6 +26,10 @@ class PYAToolkit(object):
         2. enable device's port 5555
         3. adb connect {ip_address}
         4. change base adb command to: `adb -s {ip_address}`
+
+        communication between device and PC will use wireless way.
+        and when you execute `adb devices`, it would become two devices:
+        device id and device ip (but actually they are one)
         """
         # check
         if device_id in self._instance_dict:
@@ -52,17 +56,6 @@ class PYAToolkit(object):
     def bind_func(cls, real_func):
         return binder.add(real_func.__name__, real_func)
 
-    def __getattr__(self, item):
-        # is standard function?
-        if hasattr(self.standard_func, item):
-            command = getattr(self.standard_func, item)
-            return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
-        # is custom function?
-        if not binder.is_existed(item):
-            raise AttributeError('function {} not found'.format(item))
-        command = binder.get(item)
-        return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
-
     @classmethod
     def current_function(cls):
         return binder.get_all()
@@ -82,3 +75,14 @@ class PYAToolkit(object):
         """ destroy instance """
         if self.device_id in self._instance_dict:
             del self._instance_dict[self.device_id]
+
+    def __getattr__(self, item):
+        # is standard function?
+        if hasattr(self.standard_func, item):
+            command = getattr(self.standard_func, item)
+            return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
+        # is custom function?
+        if not binder.is_existed(item):
+            raise AttributeError('function {} not found'.format(item))
+        command = binder.get(item)
+        return lambda *args, **kwargs: command(*args, toolkit=self, **kwargs)
