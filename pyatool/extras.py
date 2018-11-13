@@ -219,6 +219,30 @@ def set_ime(ime_name, toolkit=None):
     return toolkit.adb.run(['shell', 'ime', 'set', ime_name])
 
 
+def pull(src, target, toolkit=None):
+    """
+    adb pull
+
+    :param src:
+    :param target:
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['pull', src, target])
+
+
+def push(src, target, toolkit=None):
+    """
+    adb push
+
+    :param src:
+    :param target:
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['push', src, target])
+
+
 __all__ = [
     'hello_world',
 
@@ -234,4 +258,6 @@ __all__ = [
     'start_activity',
     'get_ip_address',
     'set_ime',
+    'push',
+    'pull',
 ]

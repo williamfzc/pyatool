@@ -77,3 +77,7 @@ d.switch_wifi(True)
 
 # 切换输入法
 d.set_ime('com.sohu.inputmethod.sogouoem/.SogouIME')
+
+# push and pull
+d.push('./README.md', '/sdcard/')
+d.pull('/sdcard/README.md', './haha.md')
