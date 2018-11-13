@@ -31,11 +31,6 @@ class PYAToolkit(object):
         and when you execute `adb devices`, it would become two devices:
         device id and device ip (but actually they are one)
         """
-        # check
-        if device_id in self._instance_dict:
-            logger.info('device {} already existed'.format(device_id))
-            return
-
         # init
         self.device_id = device_id
         if mode == 'remote':
