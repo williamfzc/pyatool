@@ -208,6 +208,17 @@ def get_ip_address(toolkit=None):
     return re.findall(r'inet\s*addr:(.*?)\s', result, re.DOTALL)[0]
 
 
+def set_ime(ime_name, toolkit=None):
+    """
+    设置输入法（需要使用adb shell ime list -a 获取输入法包名）
+
+    :param ime_name: 输入法包名 eg：com.android.inputmethod.pinyin/.PinyinIME
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'ime', 'set', ime_name])
+
+
 __all__ = [
     'hello_world',
 
@@ -222,4 +233,5 @@ __all__ = [
     'input_text',
     'start_activity',
     'get_ip_address',
+    'set_ime',
 ]

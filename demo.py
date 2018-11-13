@@ -74,3 +74,6 @@ d.switch_wifi(False)
 d.switch_airplane(True)
 d.switch_airplane(False)
 d.switch_wifi(True)
+
+# 切换输入法
+d.set_ime('com.sohu.inputmethod.sogouoem/.SogouIME')
