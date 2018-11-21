@@ -180,20 +180,82 @@ def input_text(content, toolkit=None):
     toolkit.adb.run(['shell', 'input', 'text', content])
 
 
-def start_activity(package_name, activity_name=None, toolkit=None):
+def start_activity(package_name, activity_name=None, flag=None, toolkit=None):
     """
     根据包名/活动名 启动应用/活动
 
     :param package_name:
     :param activity_name:
+    :param flag:
     :param toolkit:
     :return:
     """
-    # TODO --es
     base_cmd = ['shell', 'am', 'start']
+    base_cmd += [flag or '-n']
     if not activity_name:
         return toolkit.adb.run(base_cmd + [package_name])
-    return toolkit.adb.run(base_cmd + ['-n', '{}/.{}'.format(package_name, activity_name)])
+    return toolkit.adb.run(base_cmd + ['{}/.{}'.format(package_name, activity_name)])
+
+
+def force_stop(package_name, toolkit=None):
+    """
+    根据包名/活动名 停止应用
+
+    :param package_name:
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'am', 'force-stop', package_name])
+
+
+def clean_backstage(toolkit=None):
+    """
+    清理后台应用/进程
+
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'am', 'kill-all'])
+
+
+def send_broadcast(broadcast_name, flag=None, toolkit=None):
+    """
+    发送广播
+
+    :param broadcast_name:
+    :param flag:
+    :param toolkit:
+    :return:
+    """
+    base_cmd = ['shell', 'am', 'start']
+    base_cmd += [flag or '-n']
+    return toolkit.adb.run(base_cmd + [broadcast_name])
+
+
+def input_key_event(key_code, toolkit=None):
+    """
+    send key event
+
+    :param key_code:
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'input', 'keyevent', str(key_code)])
+
+
+def swipe(x1, y1, x2, y2, toolkit=None):
+    """
+    swipe from (x1, y1) to (x2, y2)
+
+    :param x1:
+    :param y1:
+    :param x2:
+    :param y2:
+    :param toolkit:
+    :return:
+    """
+    x1, y1, x2, y2 = map(str, (x1, y1, x2, y2))
+    return toolkit.adb.run(['shell', 'input', 'swipe', x1, y1, x2, y2])
 
 
 def get_ip_address(toolkit=None):
@@ -260,4 +322,9 @@ __all__ = [
     'set_ime',
     'push',
     'pull',
+    'clean_backstage',
+    'send_broadcast',
+    'force_stop',
+    'input_key_event',
+    'swipe',
 ]
