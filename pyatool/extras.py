@@ -191,7 +191,8 @@ def start_activity(package_name, activity_name=None, flag=None, toolkit=None):
     :return:
     """
     base_cmd = ['shell', 'am', 'start']
-    base_cmd += [flag or '-n']
+    if flag:
+        base_cmd.append(flag)
     if not activity_name:
         return toolkit.adb.run(base_cmd + [package_name])
     return toolkit.adb.run(base_cmd + ['{}/.{}'.format(package_name, activity_name)])
@@ -228,7 +229,8 @@ def send_broadcast(broadcast_name, flag=None, toolkit=None):
     :return:
     """
     base_cmd = ['shell', 'am', 'start']
-    base_cmd += [flag or '-n']
+    if flag:
+        base_cmd.append(flag)
     return toolkit.adb.run(base_cmd + [broadcast_name])
 
 
@@ -256,6 +258,18 @@ def swipe(x1, y1, x2, y2, toolkit=None):
     """
     x1, y1, x2, y2 = map(str, (x1, y1, x2, y2))
     return toolkit.adb.run(['shell', 'input', 'swipe', x1, y1, x2, y2])
+
+
+def click(x, y, toolkit=None):
+    """
+    click (x, y)
+
+    :param x:
+    :param y:
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'input', 'tap', str(x), str(y)])
 
 
 def get_ip_address(toolkit=None):
@@ -327,4 +341,5 @@ __all__ = [
     'force_stop',
     'input_key_event',
     'swipe',
+    'click',
 ]

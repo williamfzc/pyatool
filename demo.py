@@ -91,3 +91,5 @@ d.input_key_event(26)
 
 # swipe
 d.swipe(500, 1200, 500, 200)
+# click
+d.click(200, 200)
