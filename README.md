@@ -137,6 +137,11 @@ pyatool本身提供了丰富的（并没有）标准函数库供开发者直接�
 pip install pyatool
 ```
 
+## TODO
+
+- [ ] 用subprocess调用adb的方式依旧不够科学，参考[socket2adb](https://github.com/williamfzc/socket2adb)
+- [ ] 标准函数库因为动态绑定导致在IDE中没有自动补全
+
 ## 意见与建议
 
 欢迎issue与PR
