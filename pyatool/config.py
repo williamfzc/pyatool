@@ -12,7 +12,7 @@ TAG_DEVICE = 'DEVICE'
 
 # config
 # default adb command timeout
-DEFAULT_TIMEOUT = 15
+DEFAULT_TIMEOUT = 30
 
 # system
 # 'Linux', 'Windows' or 'Darwin'.
