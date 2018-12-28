@@ -8,11 +8,35 @@
 
 > python android toolkit 🔨
 
+## TL;DR
+
+Directly call standard API.
+
+```python
+from pyatool import PYAToolkit
+
+device = PYAToolkit('123456F')
+package_list = device.show_package()
+print(package_list)
+```
+
+View all API we provided [here](pyatool/extras.py).
+
+And, some [demo](demo.py).
+
+## Install
+
+support python3 only
+
+```python
+pip install pyatool
+```
+
 ## Goal
 
-- Easy way to handle android devices with python
+Easy way to handle android devices with python
 
-## Usage
+## Need more functions?
 
 If you want to execute `adb shell pm list package` to check your installed packages, you can:
 
@@ -53,19 +77,6 @@ and then you can use it:
 ```python
 device_toolkit = PYAToolkit('123456F')
 device_toolkit.download_and_install()
-```
-
-## API
-
-- demo：[demo.py](https://github.com/williamfzc/pyatool/blob/master/demo.py)
-- API：[extras.py](https://github.com/williamfzc/pyatool/blob/master/pyatool/extras.py)
-
-## Install
-
-support python3 only
-
-```python
-pip install pyatool
 ```
 
 ## Suggestion or Contribution?

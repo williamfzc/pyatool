@@ -8,6 +8,29 @@
 
 > python android toolkit 🔨
 
+## TL;DR
+
+直接用我们提供的标准库，对android设备进行各种操作。
+
+```python
+from pyatool import PYAToolkit
+
+device = PYAToolkit('123456F')
+package_list = device.show_package()
+print(package_list)
+```
+
+- 完整API参见[extras.py](pyatool/extras.py)
+- 更多使用例子参见[demo.py](demo.py)
+
+## 安装
+
+请使用python3
+
+```python
+pip install pyatool
+```
+
 ## 目标
 
 - 简化日常开发中对设备的操作
@@ -16,13 +39,7 @@
 - 减少重复工作，共享开发
 - 降低使用门槛，让所有人都可以快速上手
 
-## 设计与使用
-
-### 导入
-
-```python
-from pyatool import PYAToolkit
-```
+## 还想要更多功能？
 
 ### 自定义函数
 
@@ -76,7 +93,7 @@ device_toolkit = PYAToolkit('123456F')
 device_toolkit.download_and_install()
 ```
 
-#### 单次开发
+### 单次开发
 
 pyatool如此设计的目的是为了能够尽量减少重复工作。为了方便所有人加入开发，往内置库中添加方法非常容易。
 
@@ -95,7 +112,7 @@ pyatool如此设计的目的是为了能够尽量减少重复工作。为了方�
 
 ```python
 from pyatool import PYAToolkit
-from whenconnect import when_connect, start_detect
+from whenconnect import when_connect
 
 
 VERSION = 'v0.1.4'
@@ -115,27 +132,9 @@ def install_sh(device_id):
 
 
 when_connect(device='all', do=install_sh)
-start_detect()
 ```
 
 就完成了。在运行之后，一旦有android设备接入，将会自动为其安装apk。
-
-## API
-
-pyatool本身提供了丰富的（并没有）标准函数库供开发者直接使用，已经有的函数就不需要再次编写了。
-
-同时也欢迎热心人士为标准库添砖加瓦，无论是提出修改意见或者新增方法 :) 已有的函数很可能难以适应不同的情况。
-
-使用方法推荐直接看代码：
-
-- demo：[demo.py](https://github.com/williamfzc/pyatool/blob/master/demo.py)
-- API：[extras.py](https://github.com/williamfzc/pyatool/blob/master/pyatool/extras.py)
-
-## 安装
-
-```python
-pip install pyatool
-```
 
 ## TODO
 
@@ -148,4 +147,4 @@ pip install pyatool
 
 ## 协议
 
-MIT
+[MIT](LICENSE)
