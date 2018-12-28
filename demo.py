@@ -19,6 +19,7 @@ PYAToolkit.switch_logger(True)
 
 # 初始化
 d = PYAToolkit('123456F')
+assert d.is_connected()
 
 # 它也支持远程控制（还不够稳定，暂不推荐
 # d = PYAToolkit('123456F', mode='remote')

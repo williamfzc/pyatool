@@ -319,6 +319,20 @@ def push(src, target, toolkit=None):
     return toolkit.adb.run(['push', src, target])
 
 
+def is_connected(toolkit=None):
+    """
+    check if device is connected
+
+    :param toolkit:
+    :return:
+    """
+    try:
+        toolkit.adb.run(['shell', 'echo', '"hello"'])
+    except RuntimeError:
+        return False
+    return True
+
+
 __all__ = [
     'hello_world',
 
@@ -342,4 +356,5 @@ __all__ = [
     'input_key_event',
     'swipe',
     'click',
+    'is_connected',
 ]
