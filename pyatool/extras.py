@@ -333,6 +333,27 @@ def is_connected(toolkit=None):
     return True
 
 
+def make_dir(target_dir, toolkit=None):
+    """
+    make empty dir
+
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'mkdir', target_dir])
+
+
+def remove_dir(target, toolkit=None):
+    """
+    clean dir, by running 'rm -rf'
+
+    :param target:
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'rm', '-rf', target])
+
+
 __all__ = [
     'hello_world',
 
@@ -357,4 +378,6 @@ __all__ = [
     'swipe',
     'click',
     'is_connected',
+    'make_dir',
+    'remove_dir',
 ]
