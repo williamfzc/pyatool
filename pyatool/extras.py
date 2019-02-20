@@ -209,9 +209,9 @@ def force_stop(package_name, toolkit=None):
     return toolkit.adb.run(['shell', 'am', 'force-stop', package_name])
 
 
-def clean_backstage(toolkit=None):
+def _clean_backstage(toolkit=None):
     """
-    清理后台应用/进程
+    （无效）清理后台应用/进程
 
     :param toolkit:
     :return:
@@ -371,7 +371,6 @@ __all__ = [
     'set_ime',
     'push',
     'pull',
-    'clean_backstage',
     'send_broadcast',
     'force_stop',
     'input_key_event',
