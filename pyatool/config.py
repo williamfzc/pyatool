@@ -18,7 +18,4 @@ DEFAULT_TIMEOUT = 30
 # 'Linux', 'Windows' or 'Darwin'.
 SYSTEM_NAME = platform.system()
 NEED_SHELL = SYSTEM_NAME != 'Windows'
-if SYSTEM_NAME == 'Windows':
-    ADB_EXECUTOR = subprocess.getoutput('where adb')
-else:
-    ADB_EXECUTOR = subprocess.getoutput('which adb')
+ADB_EXECUTOR = 'adb'
