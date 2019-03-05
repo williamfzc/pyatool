@@ -83,9 +83,6 @@ d.set_ime('com.sohu.inputmethod.sogouoem/.SogouIME')
 d.push('./README.md', '/sdcard/')
 d.pull('/sdcard/README.md', './haha.md')
 
-# stop app
-d.clean_backstage()
-
 # send keyevent
 d.input_key_event(26)
 d.input_key_event(26)
