@@ -1,6 +1,6 @@
 import subprocess
 import re
-import pyatool.logger as logger
+from pyatool.logger import logger
 import pyatool.config as conf
 
 
@@ -16,10 +16,7 @@ class ADB(object):
             self.adb_exec = [conf.ADB_EXECUTOR, '-s', self.device_ip]
 
         # show current configure
-        logger.info(conf.TAG_DEVICE,
-                    id=self.device_id,
-                    ip=self.device_ip,
-                    adb_cmd=self.adb_exec)
+        logger.debug('adb executor ready: <{}>'.format(self.adb_exec))
 
     def run(self, command):
         final_command = [*self.adb_exec, *command]
@@ -27,14 +24,16 @@ class ADB(object):
 
     @staticmethod
     def _exec(command):
+        """ throw RuntimeError when command failed """
         adb_process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         exec_result, exec_err = adb_process.communicate(timeout=conf.DEFAULT_TIMEOUT)
         if adb_process.returncode != 0:
-            feedback = 'unknown error happened when execute {}, view terminal for detail'.format(command)
             if exec_err:
                 feedback = exec_err.decode()
+            else:
+                feedback = 'unknown error happened when execute {}, view terminal for detail'.format(command)
             raise RuntimeError(feedback)
-        logger.info(conf.TAG_EXEC_CMD, cmd=command, result=exec_result)
+        logger.debug('execute: <{}> => result: <{}>'.format(command, exec_result))
         return exec_result.decode()
 
     def _get_ip_address(self):

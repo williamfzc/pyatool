@@ -1,7 +1,7 @@
 from pyatool.adb import ADB
 from pyatool import binder
 import pyatool.config as conf
-import pyatool.logger as logger
+from pyatool.logger import logger
 import pyatool.extras as extras
 
 
@@ -12,6 +12,9 @@ class PYAToolkit(object):
         # load standard functions
         # for looking up
         cls.standard_func = extras
+        # alias
+        cls.std = cls.standard_func
+
         return super(PYAToolkit, cls).__new__(cls)
 
     def __init__(self, device_id, mode=None):
@@ -64,7 +67,11 @@ class PYAToolkit(object):
 
     @classmethod
     def switch_logger(cls, status):
-        return logger.switch(status)
+        name = 'pyatool'
+        if status:
+            logger.enable(name)
+            return
+        logger.disable(name)
 
     def terminate(self):
         """ destroy instance """

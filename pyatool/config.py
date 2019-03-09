@@ -2,7 +2,6 @@
 global configure
 """
 import platform
-import subprocess
 
 
 # TAG
