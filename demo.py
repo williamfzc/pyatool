@@ -11,9 +11,6 @@ PYAToolkit.bind_cmd(func_name='test_a', command='shell pm list package | grep go
 # 或者绑定个性化的函数
 PYAToolkit.bind_func(real_func=test_b)
 
-# 修改配置
-PYAToolkit.change_conf('TAG_EXEC_CMD', 'EXEC_COMMAND')
-
 # 是否需要log
 PYAToolkit.switch_logger(True)
 
@@ -26,24 +23,23 @@ assert d.is_connected()
 
 # 已经绑定的方法直接调用即可
 result = d.test_a()
-# output (may be different)
+# 可能的输出
 # package:com.google.android.webview
 
 # 个性化函数也一样
 result = d.test_b()
 # i am test_b, running on 123456F
 
-# 可以通过`standard_func`查询已有的标准函数（会有代码自动补全，比较方便），但不要通过它调用
-# d.standard_func.get_current_activity()
-# 应该直接这么调用
-d.get_current_activity()
+# 也可以通过 `std` 或 `standard_func` 调用（会有代码自动补全，比较方便）
+# 仅限标准库，自己拓展的库只支持直接调用
+d.std.get_current_activity(toolkit=d)
 
 # 获取所有已经注册的函数
 all_functions = d.current_function()
 print(all_functions)
 
 # 下面列举所有标准函数的使用方法，有任何问题欢迎反馈或自己改
-# test-only
+# 打印出机器id，仅供测试用
 d.hello_world()
 
 # 展示所有已安装的包
