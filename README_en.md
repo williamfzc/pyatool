@@ -5,6 +5,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5f6647a3121aa7d278ab/maintainability)](https://codeclimate.com/github/williamfzc/pyatool/maintainability)
 [![PyPI version](https://badge.fury.io/py/pyatool.svg)](https://badge.fury.io/py/pyatool)
 [![Downloads](https://pepy.tech/badge/pyatool)](https://pepy.tech/project/pyatool)
+[![Documentation Status](https://readthedocs.org/projects/pyatool/badge/?version=latest)](https://pyatool.readthedocs.io/en/latest/?badge=latest)
 
 > python android toolkit 🔨
 
