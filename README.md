@@ -16,13 +16,15 @@
 ```python
 from pyatool import PYAToolkit
 
+# 初始化
 device = PYAToolkit('123456F')
 
-# 直接调用
+# 1. 直接调用
 package_list = device.show_package()
-# 通过标准库（有自动补全）
+# 2. 或者 通过标准库（有自动补全，能够看到真实的方法实现）
 package_list = device.std.show_package(toolkit=device)
 
+# 具体返回内容与调用的方法实现有关
 print(package_list)
 ```
 
@@ -103,14 +105,7 @@ device_toolkit.download_and_install()
 
 pyatool如此设计的目的是为了能够尽量减少重复工作。为了方便所有人加入开发，往内置库中添加方法非常容易。
 
-如果你编写了一些好方法并希望将其合入pyatool内置库以方便后续使用，你只需要：
-
-- 直接在github上编辑`extras.py`
-- 将写好的函数按照格式粘贴到`extras.py`中
-- 在`__all__`中加入你的函数名称
-- 描述你的修改，然后点击`Propose file change`，github会自动为你发起pull request
-
-要让库变得更方便好用还是需要各位的共同努力~
+如果你编写了一些好方法并希望将其合入pyatool标准库以方便后续使用，你只需要将你的方法添加到 `extras.py` 中，发起PR！
 
 ## 具体案例
 
@@ -141,11 +136,6 @@ when_connect(device='all', do=install_sh)
 ```
 
 就完成了。在运行之后，一旦有android设备接入，将会自动为其安装apk。
-
-## TODO
-
-- [ ] 用subprocess调用adb的方式依旧不够科学，参考[socket2adb](https://github.com/williamfzc/socket2adb)
-- [ ] 标准函数库因为动态绑定导致在IDE中没有自动补全
 
 ## 意见与建议
 

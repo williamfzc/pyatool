@@ -16,8 +16,15 @@ Directly call standard API.
 ```python
 from pyatool import PYAToolkit
 
+# init
 device = PYAToolkit('123456F')
+
+# 1. call it directly
 package_list = device.show_package()
+# 2. or, call it via std
+package_list = device.std.show_package(toolkit=device)
+
+# return content depends on called function
 print(package_list)
 ```
 

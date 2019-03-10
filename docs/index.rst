@@ -17,13 +17,15 @@ Usage
 
    from pyatool import PYAToolkit
 
+   # 初始化
    device = PYAToolkit('123456F')
 
-   # 直接调用
+   # 1. 直接调用
    package_list = device.show_package()
-   # 通过标准库（有自动补全）
+   # 2. 或者 通过标准库（有自动补全，能够看到真实的方法实现）
    package_list = device.std.show_package(toolkit=device)
 
+   # 具体返回内容与调用的方法实现有关
    print(package_list)
 
 要调用其他的API，将 `show_package` 替换成API名称即可！
