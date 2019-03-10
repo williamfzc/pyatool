@@ -36,6 +36,12 @@ class ADB(object):
         logger.debug('execute: <{}> => result: <{}>'.format(command, exec_result))
         return exec_result.decode()
 
+    @staticmethod
+    def restart_adb():
+        """ restart adb server """
+        subprocess.check_call(['adb', 'kill-server'])
+        subprocess.check_call(['adb', 'start-server'])
+
     def _get_ip_address(self):
         result = self.run(['shell', 'ifconfig', 'wlan0'])
         return re.findall(r'inet\s*addr:(.*?)\s', result, re.DOTALL)[0]
