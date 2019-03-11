@@ -22,12 +22,12 @@ def hello_world(toolkit=None):
     toolkit.adb.run(['shell', 'ps'])
 
 
-def install_from(url=None, path=None, toolkit=None):
+def install_from(url: str = None, path: str = None, toolkit=None):
     """
-    根据url或path安装apk
+    根据url或path安装指定apk
 
-    :param url:
-    :param path:
+    :param url: apk对应的下载url
+    :param path: apk的本地路径
     :param toolkit:
     :return:
     """
@@ -57,7 +57,7 @@ def _install_from_path(path, toolkit=None):
 
 def get_current_activity(toolkit=None):
     """
-    获取设备的当前activity名称
+    获取设备的当前栈顶activity名称
 
     :param toolkit:
     :return:
@@ -68,11 +68,11 @@ def get_current_activity(toolkit=None):
     return toolkit.adb.run(['shell', 'dumpsys', 'activity', 'top', '|', 'grep', 'ACTIVITY'])
 
 
-def is_installed(package_name, toolkit=None):
+def is_installed(package_name: str, toolkit=None):
     """
     检测包是否已被安装到设备上
 
-    :param package_name:
+    :param package_name: 待检测的包名
     :param toolkit:
     :return:
     """
@@ -89,24 +89,24 @@ def show_package(toolkit=None):
     return toolkit.adb.run(['shell', 'pm', 'list', 'package'])
 
 
-def clean_cache(package_name, toolkit=None):
+def clean_cache(package_name: str, toolkit=None):
     """
     清理对应包的缓存
 
-    :param package_name:
+    :param package_name: 对应包名
     :param toolkit:
     :return:
     """
     return toolkit.adb.run(['shell', 'pm', 'clear', package_name])
 
 
-def uninstall(package_name, toolkit=None, save_data=None):
+def uninstall(package_name: str, toolkit=None, save_data: bool = None):
     """
     卸载指定包
 
-    :param package_name:
+    :param package_name: 对应包名
     :param toolkit:
-    :param save_data:
+    :param save_data: 是否保留data
     :return:
     """
     if save_data:
@@ -116,7 +116,7 @@ def uninstall(package_name, toolkit=None, save_data=None):
     return toolkit.adb.run(cmd_list)
 
 
-def switch_airplane(status, toolkit=None):
+def switch_airplane(status: bool, toolkit=None):
     """
     切换飞行模式的开关
 
@@ -136,7 +136,7 @@ def switch_airplane(status, toolkit=None):
     toolkit.adb.run(base_am_cmd)
 
 
-def switch_wifi(status, toolkit=None):
+def switch_wifi(status: bool, toolkit=None):
     """
     切换wifi开关
 
@@ -152,7 +152,7 @@ def switch_wifi(status, toolkit=None):
     toolkit.adb.run(cmd_dict[status])
 
 
-def switch_screen(status, toolkit=None):
+def switch_screen(status: bool, toolkit=None):
     """
     点亮/熄灭 屏幕
 
@@ -168,41 +168,48 @@ def switch_screen(status, toolkit=None):
     toolkit.adb.run(cmd_dict[status])
 
 
-def input_text(content, toolkit=None):
+def input_text(content: str, toolkit=None):
     """
-    输入文字（不支持中文）
-    # TODO 中文输入 可以利用ADBKeyBoard (https://github.com/senzhk/ADBKeyBoard)
+    输入文字（不支持中文）。中文输入可以利用ADBKeyBoard (https://github.com/senzhk/ADBKeyBoard)
 
-    :param content:
+    :param content: 期望的输入内容
     :param toolkit:
     :return:
     """
     toolkit.adb.run(['shell', 'input', 'text', content])
 
 
-def start_activity(package_name, activity_name=None, flag=None, toolkit=None):
+def start_activity(package_name: str, activity_name: str = None, toolkit=None):
     """
-    根据包名/活动名 启动应用/活动
+    根据包名/活动名 启动应用/活动 （更复杂场景请使用 start_activity_with_command）
 
-    :param package_name:
-    :param activity_name:
-    :param flag:
+    :param package_name: 包名
+    :param activity_name: 活动名
     :param toolkit:
     :return:
     """
     base_cmd = ['shell', 'am', 'start']
-    if flag:
-        base_cmd.append(flag)
     if not activity_name:
         return toolkit.adb.run(base_cmd + [package_name])
     return toolkit.adb.run(base_cmd + ['{}/.{}'.format(package_name, activity_name)])
 
 
-def force_stop(package_name, toolkit=None):
+def start_activity_with_command(command: str, toolkit=None):
+    """
+    更灵活的 start_activity，实际上是运行 adb shell am start <command>
+
+    :param command: adb shell am start <command>
+    :param toolkit:
+    :return:
+    """
+    return toolkit.adb.run(['shell', 'am', 'start', command.split(' ')])
+
+
+def force_stop(package_name: str, toolkit=None):
     """
     根据包名/活动名 停止应用
 
-    :param package_name:
+    :param package_name: 包名
     :param toolkit:
     :return:
     """
@@ -219,26 +226,22 @@ def _clean_backstage(toolkit=None):
     return toolkit.adb.run(['shell', 'am', 'kill-all'])
 
 
-def send_broadcast(broadcast_name, flag=None, toolkit=None):
+def send_broadcast(command: str, toolkit=None):
     """
-    发送广播
+    发送广播，实际上是 adb shell am broadcast <command>
 
-    :param broadcast_name:
-    :param flag:
+    :param command: 在 am broadcast 后的命令
     :param toolkit:
     :return:
     """
-    base_cmd = ['shell', 'am', 'start']
-    if flag:
-        base_cmd.append(flag)
-    return toolkit.adb.run(base_cmd + [broadcast_name])
+    return toolkit.adb.run(['shell', 'am', 'start', command.split(' ')])
 
 
 def input_key_event(key_code, toolkit=None):
     """
     send key event
 
-    :param key_code:
+    :param key_code: 按钮对应的 keycode， 例如home键是3。参考https://developer.android.com/reference/kotlin/android/view/KeyEvent
     :param toolkit:
     :return:
     """
@@ -297,7 +300,7 @@ def set_ime(ime_name, toolkit=None):
 
 def pull(src, target, toolkit=None):
     """
-    adb pull
+    adb pull <src> <target>
 
     :param src:
     :param target:
@@ -309,7 +312,7 @@ def pull(src, target, toolkit=None):
 
 def push(src, target, toolkit=None):
     """
-    adb push
+    adb push <src> <target>
 
     :param src:
     :param target:
@@ -333,21 +336,22 @@ def is_connected(toolkit=None):
     return True
 
 
-def make_dir(target_dir, toolkit=None):
+def make_dir(target, toolkit=None):
     """
-    make empty dir
+    make empty dir: adb shell mkdir <target_dir>
 
+    :param target: 目标路径
     :param toolkit:
     :return:
     """
-    return toolkit.adb.run(['shell', 'mkdir', target_dir])
+    return toolkit.adb.run(['shell', 'mkdir', target])
 
 
 def remove_dir(target, toolkit=None):
     """
-    clean dir, by running 'rm -rf'
+    clean dir: adb shell rm -rf <target>
 
-    :param target:
+    :param target: 目标路径
     :param toolkit:
     :return:
     """
@@ -367,6 +371,7 @@ __all__ = [
     'switch_wifi',
     'input_text',
     'start_activity',
+    'start_activity_with_command',
     'get_ip_address',
     'set_ime',
     'push',
