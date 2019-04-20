@@ -1,10 +1,9 @@
 from setuptools import setup, find_packages
-from pyatool import __VERSION__
 
 
 setup(
     name='pyatool',
-    version=__VERSION__,
+    version='0.3.7',
     description='python android toolkit',
     author='williamfzc',
     author_email='fengzc@vip.qq.com',
