@@ -1,3 +1,12 @@
+# IMPORTANT!!
+
+这个仓库不再维护了，不建议在正式环境里使用。替代品：
+
+- 跟这个库一样用subprocess实现的：[miniadb](https://github.com/williamfzc/minadb)
+- 用socket实现的：[adbutils](https://github.com/openatx/adbutils)
+
+---
+
 # pyatool
 
 [English Version](https://github.com/williamfzc/pyatool/blob/master/README_en.md)
